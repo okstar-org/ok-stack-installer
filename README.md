@@ -7,6 +7,11 @@ OkStackInstall 为 OkStack 系统部署参考文档，基于Python，Docker，Do
     - 18443
     - 9090
     - 5222
+- 公网域名1个以及子域名，如下：
+    - 一级域名，okstar.org
+    - 二级域名，kc.okstar.org    18443
+    - 二级域名，meet.okstar.org  5222
+    - 二级域名，stack.okstar.org 80
 
 ## 系统依赖
 - Docker24+
@@ -17,7 +22,7 @@ OkStackInstall 为 OkStack 系统部署参考文档，基于Python，Docker，Do
 
 ## Clone 本项目
     
-    git@github.com:okstar-org/ok-stack-installer.git
+    git clone git@github.com:okstar-org/ok-stack-installer.git
 
 ## 执行安装
     chmod a+x install.sh
@@ -26,5 +31,4 @@ OkStackInstall 为 OkStack 系统部署参考文档，基于Python，Docker，Do
 ## 配置系统
 - Keycloak
 - Openfire
-
 
