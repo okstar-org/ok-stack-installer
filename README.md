@@ -20,13 +20,39 @@ OkStackInstall 为 OkStack 系统部署参考文档，基于Python，Docker，Do
 - Linux
 
 
-## Clone 本项目
-    
-    git clone git@github.com:okstar-org/ok-stack-installer.git
+## 安装项目
+- 克隆代码
+```shell
+git clone https://github.com/okstar-org/ok-stack-installer.git
+```
 
-## 执行安装
-    chmod a+x install.sh
-    ./install
+- 执行安装
+```shell
+cd ok-stack-installer
+chmod a+x *.sh
+./install.sh
+```
+
+## 配置服务
+
+
+## 启动服务
+```shell
+# build参数可选，启动时重新构建镜像，用在修改docker-compose配置重新启动时
+./startup.sh [--build]
+```
+
+## 停止服务
+```shell
+./shutdown.h
+```
+
+## 卸载项目
+```shell
+./uninstall.sh
+# 删除本项目
+sudo rm -rf ok-stack-installer
+```
 
 ## 配置系统
 - Keycloak

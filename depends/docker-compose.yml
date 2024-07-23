@@ -9,72 +9,92 @@ services:
       - ./mariadb/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "okstar"
+    restart: always
+    healthcheck:
+      test: ["CMD", "mysqladmin" , "-h", "localhost","-uroot", "-pokstar", "ping"]  
+      timeout: 20s
+      retries: 20
+      interval: 10s
 
   apacheds:
     build:
       context: ./apacheds
     ports:
       - "10389:10389"
+    restart: always
+    healthcheck:  
+      test: ["CMD", "nc", "-zv", "localhost", "10389"]  
+      interval: 10s  
+      timeout: 5s  
+      retries: 3
 
   keycloak:
     build:
       context: ./keycloak
     environment:
       - KC_DB=mariadb
-      - KC_DB_URL=jdbc:mariadb://db/keycloak?autoReconnect=true&useUnicode=true&characterEncoding=utf8
       - KC_DB_USERNAME=root
       - KC_DB_PASSWORD=okstar
-      - KC_HOSTNAME=localhost
-      - KC_HOSTNAME_URL=https://localhost
-      - KC_HOSTNAME_ADMIN_URL=https://localhost
-      - KEYCLOAK_ADMIN=admin
-      - KEYCLOAK_ADMIN_PASSWORD=okstar
-      - KEYCLOAK_SAME_SITE_COOKIES=true
-      - KC_PROXY_ADDRESS_FORWARDING=true
+      - KC_DB_URL=jdbc:mariadb://db/keycloak?autoReconnect=true&useUnicode=true&characterEncoding=utf8
+      - KC_HOSTNAME=kc.okstar.org
+      - KC_HOSTNAME_URL=http://kc.okstar.org
+      - KC_HOSTNAME_ADMIN_URL=http://kc.okstar.org
+      - KC_HOSTNAME_STRICT_BACKCHANNEL=true
+      - KC_HEALTH_ENABLED=true
+      - KC_METRICS_ENABLED=true
       - KC_PROXY=edge
+      - KC_PROXY_ADDRESS_FORWARDING=true
       - KC_HTTP_ENABLED=true
       - KC_HTTP_PORT=8080
       - KC_HTTPS_PORT=8443
-      - KC_HOSTNAME_STRICT_BACKCHANNEL=true
+      - KEYCLOAK_ADMIN=admin
+      - KEYCLOAK_ADMIN_PASSWORD=okstar
+      - KEYCLOAK_SAME_SITE_COOKIES=true
     volumes:
       - /etc/localtime:/etc/localtime
     ports:
-      - 18043:8080
+      - 18080:8080
       - 18443:8443
-      - 10990:10990
+      - 19000:9000
+    restart: always
     depends_on:
-      - db
-      - apacheds
-      
+      db:
+        condition: service_healthy
+      apacheds:
+        condition: service_healthy
+    healthcheck:  
+      test: ["CMD", "curl", "-f", "http://localhost:9000/health/live"]  
+      interval: 10s  
+      timeout: 10s
+      retries: 10  
+
   openfire:
     image: "okstarorg/ok-openfire"
+    restart: always
     volumes:
-      - ./openfire/logs:/var/log/openfire
+      - ./ok-openfire/logs:/var/log/openfire
     ports:
-      - 3478:3478
-      - 3479:3479
       - 5222:5222
-      - 5223:5223
-      - 5229:5229
-      - 5262:5262
-      - 5263:5263
-      - 5275:5275
-      - 5276:5276
-      - 7070:7070
-      - 7443:7443
-      - 7777:7777
-      - 9090:9090
-      - 9091:9091
-      - 5005:5005
     depends_on:
-      - db
-      - apacheds
+      db:
+        condition: service_healthy
+      apacheds:
+        condition: service_healthy
 
   ok-stack:
     image: "okstarorg/ok-stack-backend:beta"
+    restart: always
     depends_on:
       - db
+      - keycloak
     ports:
-      - 18080:80
+      - 8080:80
     volumes:
       - ./ok-stack/logs:/home/okstar/ok-stack/logs
+    depends_on:
+      db:
+        condition: service_healthy
+      apacheds:
+        condition: service_healthy
+      keycloak:
+        condition: service_healthy

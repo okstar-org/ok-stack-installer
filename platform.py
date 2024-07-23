@@ -1,23 +1,16 @@
 #!/bin/python3
 
+import os
 import subprocess  
 import sys
 from pathlib import Path
-import os  
 
-  
-
-# 获取当前脚本的完整路径  
-
-# 使用os.path.dirname获取当前脚本所在的目录  
+ 
 DIR = os.path.dirname(__file__)  
-print("DIR:", DIR)
-
 aptOs = ["Ubuntu", "Debian"]
 dnfOs = ["Fedora", "CentOS", "Rocky", "Redhat"]
 
-
-class OS:
+class OsInfo:
     name = ""
     kernel = ""
     arch = ""
@@ -39,7 +32,7 @@ class OS:
 def exit(code):
     sys.exit(code)
 
-def isSupport(o: OS):
+def isSupport(o: OsInfo):
     if(o.isDeb()):
         return True
     elif(o.isDnf()):
@@ -58,7 +51,7 @@ def getOs():
             print(f"Error executing command: {result.stderr}")
             exit(1)
         else:
-            os = OS() 
+            os = OsInfo() 
             # 输出hostnamectl的结果  
             for line in result.stdout.splitlines():
                 if line.strip().startswith("Operating System:"):
@@ -95,33 +88,9 @@ def updateOs(os):
     return True
 
 
-# def installJava(os):
-#     print("Prepare for java.")
 
-#     file='OpenJDK17U-jdk_' + os.arch + '_linux_hotspot_17.0.11_9.tar.gz'
-#     if(Path(file).exists()):
-#         print(f"Found java:{file}.")
-#     else:
-#         print(f"Download java:{file}")
-#         result = subprocess.run(['curl', '-C','-', '-O','-L', 'https://github.com/adoptium/temurin17-binaries/releases/download/jdk-17.0.11%2B9/'+file])
-#         if(result.returncode != 0):
-#             print(f"Download error:{result.returncode}")
-#             return False
-
-#     java_dir = DIR+'/jdk-17.0.11+9'
-#     if(not Path(java_dir).exists()):
-#         print(f"Extract java:{file}")    
-#         result = subprocess.run(['tar', '-xzf', file])
-#         if(result.returncode != 0):
-#             print(f"Extract error:{result.returncode}")
-#             return False
-
-#     print(f"JAVA_HOME:{java_dir}")
-#     return True
-
-def setupDocker(o: OS):
+def setupDocker(o: OsInfo):
     print("Set up docker.")
-
     result = os.system("which docker")
     if (not result == 0):
         if(o.isDeb()):
@@ -136,40 +105,3 @@ def setupDocker(o: OS):
                 return False
         print("Set up docker is completed.")
     return True
-
-def setupDepends(o: OS):
-    print("cd depends")
-    os.chdir("depends")
-    if(o.isDeb()):
-        subprocess.run(['docker-compose', 'up'])
-        return False
-    elif(o.isDnf()):
-        subprocess.run(['podman-compose', 'up'])
-        return False
-    return True
-
-
-o = getOs()
-print(f"Os information: {o.toString()}")
-
-if(not isSupport(o)):
-    print("Your os was not supported!")
-    exit(1)
-
-# installedJava = installJava(o)
-# if (not installedJava):
-#     print(f"Install Java failed.")
-#     exit(1)
-
-installedDocker = setupDocker(o)
-if (not installedDocker):
-    print(f"Setup docker failed.")
-    exit(1)
-
-installedDepends = setupDepends(o)
-if (not installedDepends):
-    # build for depends
-    print(f"Setup depends failed.")
-
-# https://github.com/okstar-org/ok-stack-ui/releases/download/latest/ok-stack-ui.zip
-
