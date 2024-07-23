@@ -35,6 +35,13 @@ chmod a+x *.sh
 
 ## 配置服务
 
+- 修改 keycloak 配置
+位于depends/docker-compose.yml
+```yaml
+      - KC_HOSTNAME={kc_hostname}
+      - KC_HOSTNAME_URL=http://{kc_hostname}
+      - KC_HOSTNAME_ADMIN_URL=http://{kc_hostname}
+```
 
 ## 启动服务
 ```shell
@@ -48,8 +55,17 @@ chmod a+x *.sh
 ```
 
 ## 卸载项目
+
 ```shell
+# 该卸载仅仅是移除容器
+# mariadb数据可能因为权限无法删除需要手动执行
 ./uninstall.sh
+
+# 请删除相关本地缓存镜像,如下：
+docker rmi okstarorg/ok-stack-backend
+docker rmi depends-keycloak
+docker rmi depends-apacheds
+
 # 删除本项目
 sudo rm -rf ok-stack-installer
 ```
@@ -60,5 +76,6 @@ sudo rm -rf ok-stack-installer
 git reset --hard
 # 拉取最新代码
 git pull origin main
+
 ```
 

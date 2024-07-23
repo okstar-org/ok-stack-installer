@@ -85,7 +85,7 @@ services:
     image: "okstarorg/ok-stack-backend:beta"
     restart: always
     ports:
-      - 8080:80
+      - 1080:80
     volumes:
       - ./ok-stack/logs:/home/okstar/ok-stack/logs
     depends_on:
