@@ -54,7 +54,11 @@ chmod a+x *.sh
 sudo rm -rf ok-stack-installer
 ```
 
-## 配置系统
-- Keycloak
-- Openfire
+## 更新系统
+```shell
+# 重置版本
+git reset --hard
+# 拉取最新代码
+git pull origin main
+```
 

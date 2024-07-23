@@ -84,9 +84,6 @@ services:
   ok-stack:
     image: "okstarorg/ok-stack-backend:beta"
     restart: always
-    depends_on:
-      - db
-      - keycloak
     ports:
       - 8080:80
     volumes:
