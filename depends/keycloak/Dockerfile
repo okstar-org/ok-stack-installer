@@ -1,5 +1,4 @@
-FROM quay.io/keycloak/keycloak:latest as builder
-
+FROM quay.io/keycloak/keycloak:latest AS builder
 
 FROM registry.access.redhat.com/ubi9 AS ubi-micro-build
 RUN mkdir -p /mnt/rootfs

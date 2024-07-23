@@ -36,9 +36,7 @@ services:
       - KC_DB_USERNAME=root
       - KC_DB_PASSWORD=okstar
       - KC_DB_URL=jdbc:mariadb://db/keycloak?autoReconnect=true&useUnicode=true&characterEncoding=utf8
-      - KC_HOSTNAME=kc.okstar.org
-      - KC_HOSTNAME_URL=http://kc.okstar.org
-      - KC_HOSTNAME_ADMIN_URL=http://kc.okstar.org
+      - KC_HOSTNAME_STRICT=false
       - KC_HOSTNAME_STRICT_BACKCHANNEL=true
       - KC_HEALTH_ENABLED=true
       - KC_METRICS_ENABLED=true
