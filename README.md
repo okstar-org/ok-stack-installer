@@ -2,16 +2,13 @@
 OkStackInstall 为 OkStack 系统（[前端](https://github.com/okstar-org/ok-stack-ui)、[后端](https://github.com/okstar-org/ok-stack-backend)）部署脚本，基于Python，Docker，DockerCompose实现。参考本文档即可完成OkStack系统的搭建，耗费时间答应在1小时！
 
 ## 准备条件
-- 公网服务器1台（2核4G100G存储）
-- 开放端口
-    - 18443
-    - 9090
-    - 5222
-- 公网域名1个以及子域名，列如：
+- 公网服务器1台（X64架构、2核、4G、100G存储）
+- 公网域名1个域名以及子域名，列如：
     - 一级域名，okstar.org
-    - 二级域名，kc.okstar.org    18080
-    - 二级域名，meet.okstar.org  5222
-    - 二级域名，stack.okstar.org 1080
+    - 二级域名，kc.okstar.org    端口：18080
+    - 二级域名，meet.okstar.org  端口：5222,9090
+    - 二级域名，stack.okstar.org 端口：1080
+> 如有防火墙，请开放相关所需端口。
 
 ## 系统依赖
 - Docker24+
