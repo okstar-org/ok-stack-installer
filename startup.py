@@ -8,19 +8,27 @@ from platform import OsInfo
 def upDepends(o: OsInfo, build: bool):
     print("Startup ...")
     os.chdir("depends")
+
+
+    cmd=['up', '-d', '--remove-orphans'];
+    if (build):
+        cmd = cmd + ['--build']
+
     if(o.isDeb()):
-        subprocess.run(['docker-compose', 'up', '-d', '--remove-orphans',  '--build' if build else ''])
-        return False
+        result = subprocess.run(['docker-compose' ]+cmd)
+        return result.returncode == 0
     elif(o.isDnf()):
-        subprocess.run(['podman-compose', 'up', '-d', '--remove-orphans',  '--build' if build else ''])
-        return False
+        result = subprocess.run(['podman-compose' ]+cmd)
+        return result.returncode == 0
     return True
 
 
 def start(build: bool):
     result = upDepends(platform.getOs(), build)
-    if(result):
+    if(not result):
         print("Start failed.")
+    else:
+        print("Started successfully.")
 
 if(len(sys.argv) > 1 and sys.argv[1]=='--build'):
     start(True)

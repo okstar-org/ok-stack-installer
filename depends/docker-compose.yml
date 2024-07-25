@@ -1,8 +1,6 @@
 services:
   db:
     image: "mariadb:10.6.15"
-    ports:
-      - "13306:3306"
     volumes:
       - /etc/localtime:/etc/localtime
       - ./mariadb/initdb.d:/docker-entrypoint-initdb.d
@@ -66,13 +64,14 @@ services:
       timeout: 10s
       retries: 10  
 
-  openfire:
+  ok-openfire:
     image: "okstarorg/ok-openfire"
     restart: always
     volumes:
       - ./ok-openfire/logs:/var/log/openfire
     ports:
       - 5222:5222
+      - 19090:9090
     depends_on:
       db:
         condition: service_healthy
