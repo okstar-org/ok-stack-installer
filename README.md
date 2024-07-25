@@ -1,5 +1,5 @@
 # OkStackInstaller 部署文档
-OkStackInstall 为 OkStack 系统部署参考文档，基于Python，Docker，DockerCompose实现。
+OkStackInstall 为 OkStack 系统（[前端](https://github.com/okstar-org/ok-stack-ui)、[后端](https://github.com/okstar-org/ok-stack-backend)）部署脚本，基于Python，Docker，DockerCompose实现。参考本文档即可完成OkStack系统的搭建，耗费时间答应在1小时！
 
 ## 准备条件
 - 公网服务器1台（2核4G100G存储）
@@ -138,21 +138,28 @@ Changed users sync period   :86400
     - 点击"save settings"保存设置
 
 ### 配置OkStack服务器
-> 打开服务器地址 http://{stack_doamin}:1080/
-    - 注册新帐号，登录成功之后。
-    - 主界面，点击“系统管理”=》“基础设置”：
-        - IM服务器地址:{meet_doamin}
-        - IM服务器端口:5222
-        - IM连接密钥: 为Secret key: `lqiKpoT.....`
+- 打开服务器地址 http://{stack_doamin}:1080/
+- 注册新帐号，登录成功之后。
+- 主界面，点击“组织架构”=》“部门管理”：
+    - 输入正确的组织信息：“名称”、“位置“、”URL“，保存即可。
+    - 大约过一会儿，刷新显示完整的”编号“、”认证编号“，本过程正确完成。
+
+- 主界面，点击“系统管理”=》“基础设置”：
+    - IM服务器地址:{meet_doamin}
+    - IM服务器端口:5222
+    - IM连接密钥: 为Secret key: `lqiKpoT.....`
+    - 刷新查看输入效果（无需保存）
 
 ### 登录系统
 - OkStack 管理服务，请访问：https://{stack_domain}:1080
 - IM 管理服务，请访问：http://{meet_doamin}:9090/
 - KC 认证服务，请访问：http://{kc_domain}:18080/admin/
-- 客户端
+- 客户端，下载地址：
     - Github下载地址：https://github.com/okstar-org/ok-msg-desktop/releases
     - Snap：https://snapcraft.io/ok-msg
     - Flatpak：https://flathub.org/apps/org.okstar.ok-msg
+    - 打开程序，选择``
+
 
 ## 停止服务
 ```shell
