@@ -7,11 +7,11 @@ OkStackInstall 为 OkStack 系统部署参考文档，基于Python，Docker，Do
     - 18443
     - 9090
     - 5222
-- 公网域名1个以及子域名，如下：
+- 公网域名1个以及子域名，列如：
     - 一级域名，okstar.org
-    - 二级域名，kc.okstar.org    18443
+    - 二级域名，kc.okstar.org    18080
     - 二级域名，meet.okstar.org  5222
-    - 二级域名，stack.okstar.org 80
+    - 二级域名，stack.okstar.org 1080
 
 ## 系统依赖
 - Docker24+
@@ -101,8 +101,6 @@ Periodic changed users sync :On
 Changed users sync period   :86400
 ```
 
-
-
 至此，Keycloak认证服务器则配置完成
 
 ### 配置Openfire服务器
@@ -139,7 +137,6 @@ Changed users sync period   :86400
     - 复制保存起来：Secret key: `lqiKpoT.....`（后面用到）
     - 点击"save settings"保存设置
 
-
 ### 配置OkStack服务器
 > 打开服务器地址 http://{stack_doamin}:1080/
     - 注册新帐号，登录成功之后。
@@ -148,6 +145,14 @@ Changed users sync period   :86400
         - IM服务器端口:5222
         - IM连接密钥: 为Secret key: `lqiKpoT.....`
 
+### 登录系统
+- OkStack 管理服务，请访问：https://{stack_domain}:1080
+- IM 管理服务，请访问：http://{meet_doamin}:9090/
+- KC 认证服务，请访问：http://{kc_domain}:18080/admin/
+- 客户端
+    - Github下载地址：https://github.com/okstar-org/ok-msg-desktop/releases
+    - Snap：https://snapcraft.io/ok-msg
+    - Flatpak：https://flathub.org/apps/org.okstar.ok-msg
 
 ## 停止服务
 ```shell
@@ -176,6 +181,5 @@ sudo rm -rf ok-stack-installer
 git reset --hard
 # 拉取最新代码
 git pull origin main
-
 ```
 
