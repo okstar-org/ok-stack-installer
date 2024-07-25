@@ -1,5 +1,5 @@
 # OkStackInstaller 部署文档
-OkStackInstall 为 OkStack 系统（[前端](https://github.com/okstar-org/ok-stack-ui)、[后端](https://github.com/okstar-org/ok-stack-backend)）部署脚本，基于Python，Docker，DockerCompose实现。参考本文档即可完成OkStack系统的搭建，耗费时间答应在1小时！
+OkStackInstall 为 OkStack 系统（[前端](https://github.com/okstar-org/ok-stack-ui)、[后端](https://github.com/okstar-org/ok-stack-backend)）部署脚本，基于Python，Docker，DockerCompose实现。参考本文档即可完成OkStack系统的搭建，耗费时间大约在1小时！
 
 ## 准备条件
 - 公网服务器1台（X64架构、2核、4G、100G存储）
