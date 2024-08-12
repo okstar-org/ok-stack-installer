@@ -125,7 +125,7 @@ Changed users sync period   :86400
     - 输入管理员`okstar`和密码`okstar`。
     - 点击登录
 - 第七步，上传插件
-    - 克隆[REST-API-Client](https://github.com/okstar-org/ok-openfire-REST-API-Client)，构建得到插件包`rest-api-client-xx.jar`
+    - 克隆[REST-API-plugin](https://github.com/okstar-org/ok-openfire-restAPI-plugin.git)，构建得到插件包` restAPI-openfire-plugin-assembly.jar`
     - 主界面，到一级菜单点击“插件”
     - 点击左侧“插件”，点击“浏览”选择对应插件，点击上传完成。
     - 到一级菜单，点击“服务器”=》“服务器设置”=》“REST API”。
