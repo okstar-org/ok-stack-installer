@@ -27,7 +27,11 @@ git clone https://github.com/okstar-org/ok-stack-installer.git
 ```shell
 cd ok-stack-installer
 chmod a+x *.sh
-./install.sh
+
+# 请安装指定版本，有beta、latest和指定版本格式：v{VERSION}
+./install.sh beta       #开发测试版
+./install.sh latest     #安装最新版本
+./install.sh v{VERSION} #安装指定版本，版本号请参考：https://github.com/okstar-org/ok-stack-backend/releases
 ```
 ## 启动服务
 ```shell

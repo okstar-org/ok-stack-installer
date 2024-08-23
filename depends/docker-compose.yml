@@ -79,7 +79,7 @@ services:
         condition: service_healthy
 
   ok-stack:
-    image: "okstarorg/ok-stack-backend:beta"
+    image: "okstarorg/ok-stack-backend:${VERSION}"
     restart: always
     ports:
       - 1080:80
