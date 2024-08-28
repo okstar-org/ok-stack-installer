@@ -191,3 +191,27 @@ git reset --hard
 git pull origin main
 ```
 
+## 为Keycloak配置Nginx反向代理 
+文件：depends/docker-compose.yml
+```yaml
+    - KC_HOSTNAME_STRICT=false
+    - KC_PROXY_ADDRESS_FORWARDING=true
+    - KC_PROXY_HEADERS=xforwarded
+```
+
+Nginx 配置
+```
+listen 443;
+    listen [::]:443;
+    server_name kc.okstar.org.cn;
+    location / {
+        proxy_cache off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Port $server_port;
+        proxy_pass http://localhost:18080/;
+    }
+```
