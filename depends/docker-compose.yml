@@ -1,3 +1,4 @@
+version: "3"
 services:
   db:
     image: "mariadb:10.6.15"
@@ -54,10 +55,8 @@ services:
       - 19000:9000
     restart: always
     depends_on:
-      db:
-        condition: service_healthy
-      apacheds:
-        condition: service_healthy
+      - db
+      - apacheds
     healthcheck:  
       test: ["CMD", "curl", "-f", "http://localhost:9000/health/live"]  
       interval: 10s  
@@ -73,10 +72,8 @@ services:
       - 5222:5222
       - 19090:9090
     depends_on:
-      db:
-        condition: service_healthy
-      apacheds:
-        condition: service_healthy
+      - db
+      - apacheds
 
   ok-stack:
     image: "okstarorg/ok-stack-backend:${VERSION}"
@@ -86,9 +83,6 @@ services:
     volumes:
       - ./ok-stack/logs:/home/okstar/ok-stack/logs
     depends_on:
-      db:
-        condition: service_healthy
-      apacheds:
-        condition: service_healthy
-      keycloak:
-        condition: service_healthy
+      - db
+      - apacheds
+      - keycloak
