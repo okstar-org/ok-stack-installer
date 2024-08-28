@@ -110,7 +110,7 @@ Changed users sync period   :86400
 - 第二步，服务器设置
   - 填入域名: meet.okstar.org
   - FQDN: meet.okstar.org
-  - 限制管理控制台访问: 取消勾选
+  - 限制管理控制台访问: **取消勾选**(否则设置成功之后无法登录)
 - 第三步，使用标准数据库
     - 选择MySQL数据库
     - 修改host和数据库名称其他不变，为：`db:3306/openfire`
