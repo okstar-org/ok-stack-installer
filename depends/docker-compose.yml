@@ -68,9 +68,10 @@ services:
     restart: always
     volumes:
       - ./ok-openfire/logs:/var/log/openfire
+      - ./ok-openfire/config:/var/lib/openfire
     ports:
       - 5222:5222
-      - 19090:9090
+      - 9090:9090
     depends_on:
       - db
       - apacheds
