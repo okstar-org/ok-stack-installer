@@ -67,6 +67,7 @@ services:
     image: "okstarorg/ok-openfire"
     restart: always
     volumes:
+      - ./ok-openfire:/home/openfire
       - ./ok-openfire/logs:/var/log/openfire
     ports:
       - 5222:5222
