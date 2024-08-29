@@ -82,7 +82,7 @@ services:
     ports:
       - 1080:80
     volumes:
-      - ./ok-stack/logs:/home/okstar/ok-stack/logs
+      - ./ok-stack/logs:/home/okstar/ok-stack-backend/logs
     depends_on:
       - db
       - apacheds
