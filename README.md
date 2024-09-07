@@ -44,7 +44,7 @@ chmod a+x *.sh
 首次安装需要进行该步骤相关配置操作
 
 ### 配置Keycloak服务
-- 登录：http://{kc_domain}:18080/admin/
+- 登录：http://{kc_domain}:8080/admin/
 - 输入帐号: `admin` 密码: `okstar` 登录后台.
 - 到左上角，选择: `okstar`或者`ok-star`ream
 - 到client列表, 选择`okstack`或者`ok-stack`
@@ -154,7 +154,7 @@ Changed users sync period   :86400
 ### 登录系统
 - OkStack 管理服务，请访问：https://{stack_domain}:1080
 - IM 管理服务，请访问：http://{meet_doamin}:9090/
-- KC 认证服务，请访问：http://{kc_domain}:18080/admin/
+- KC 认证服务，请访问：http://{kc_domain}:8080/admin/
 - 客户端，下载地址：
     - Github下载地址：https://github.com/okstar-org/ok-msg-desktop/releases
     - Snap：https://snapcraft.io/ok-msg
@@ -184,14 +184,50 @@ sudo rm -rf ok-stack-installer
 ```
 
 ## 更新系统
+- 更新项目
 ```shell
 # 重置版本
 git reset --hard
 # 拉取最新代码
 git pull origin main
 ```
+- 执行安装
+> 请参考上面的安装部门
 
-## 为Keycloak配置Nginx反向代理 
+- 删除原来容器和镜像，如下：
+
+```shell
+# 删除原来容器
+docker rm depends_ok-stack_1
+docker rm depends_ok-openfire_1
+docker rm depends_db_1
+docker rm depends_keycloak_1
+docker rm depends_apacheds_1
+# 删除镜像
+docker rmi okstarorg/ok-stack-backend
+docker rmi okstarorg/ok-openfire
+docker rmi quay.io/keycloak/keycloak
+docker rmi mariadb:10.6.15 #注意版本
+docker rmi depends_apacheds
+```
+- 启动服务即可
+
+
+## 配置Nginx反向代理 
+
+### 为 OkStack
+```
+    location / {
+        proxy_cache off;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:1080/;
+    }
+
+```
+
+### 为 Keycloak
 文件：depends/docker-compose.yml
 ```yaml
     - KC_HOSTNAME_STRICT=false
@@ -212,6 +248,6 @@ listen 443;
         proxy_set_header X-Forwarded-Host $host;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
         proxy_set_header X-Forwarded-Port $server_port;
-        proxy_pass http://localhost:18080/;
+        proxy_pass http://localhost:8080/;
     }
 ```

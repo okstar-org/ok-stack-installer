@@ -8,13 +8,25 @@ while [ -h "$SOURCE" ]; do # resolve $SOURCE until the file is no longer a symli
 done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
+VERSION_REG="{ok-stack-{ce|ee}:beta|ok-stack-{ce|ee}:latest|ok-stack-{ce|ee}:v{version}}"
+
 if [ -z "$1" ]; then
-    echo "Using ./install.sh {beta|latest|v{version}}"
+    echo "Using ./install.sh $VERSION_REG"
     exit 1
 fi
 
-echo "VERSION=$1"
-echo "VERSION=$1" > depends/.env
+version=$1
+
+if [[ $version =~ ^(ok-stack-(ce|ee):(beta|latest|v[0-9]+\.[0-9]+\.[0-9]+))$ ]]; then
+    echo "Matched version: $version"
+else
+    echo "Version does not match the pattern $VERSION_REG."
+    exit 1
+fi
+
+echo "version is: $version"
+
+echo "VERSION=$version" > depends/.env
 
 python3 init.py
 echo "Install is completed."

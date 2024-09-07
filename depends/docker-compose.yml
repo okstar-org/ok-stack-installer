@@ -50,9 +50,9 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime
     ports:
-      - 18080:8080
-      - 18443:8443
-      - 19000:9000
+      - 8080:8080
+      - 8443:8443
+      - 9000:9000
     restart: always
     depends_on:
       - db
@@ -77,7 +77,7 @@ services:
       - apacheds
 
   ok-stack:
-    image: "okstarorg/ok-stack-backend:${VERSION}"
+    image: "okstarorg/${VERSION}"
     restart: always
     ports:
       - 1080:80
