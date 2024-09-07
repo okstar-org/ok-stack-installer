@@ -29,9 +29,9 @@ cd ok-stack-installer
 chmod a+x *.sh
 
 # 请安装指定版本，有beta、latest和指定版本格式：v{VERSION}
-./install.sh beta       #开发测试版
-./install.sh latest     #安装最新版本
-./install.sh v{VERSION} #安装指定版本，版本号请参考：https://github.com/okstar-org/ok-stack-backend/releases
+./install.sh ok-stack-{ce|ee}:beta       #开发/企业测试版
+./install.sh ok-stack-{ce|ee}:latest     #开发/企业最新版本
+./install.sh ok-stack-{ce|ee}:v{VERSION} #开发/企业指定版本，版本号请参考：https://github.com/okstar-org/ok-stack-backend/releases
 ```
 ## 启动服务
 ```shell
