@@ -80,7 +80,13 @@ services:
     restart: always
     ports:
       - 1080:80
+      - 8000:8000
       - 9000:9000
+      - 9100:9100
+      - 9200:9200
+      - 9300:9300
+      - 9400:9400
+      - 9500:9500
     volumes:
       - ./ok-stack/logs:/home/okstar/ok-stack-backend/logs
     depends_on:
