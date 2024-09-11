@@ -10,7 +10,7 @@ OkStackInstall 为 OkStack 系统（[前端](https://github.com/okstar-org/ok-st
 - 公网域名1个域名以及子域名，列如：
     - 一级域名，okstar.org
     - 二级域名，kc.okstar.org    端口：18080
-    - 二级域名，meet.okstar.org  端口：5222,9090
+    - 二级域名，meet.okstar.org  端口：5222
     - 二级域名，stack.okstar.org 端口：1080
 > 如有防火墙，请开放相关所需端口。
 
