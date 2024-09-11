@@ -89,6 +89,7 @@ services:
       - 9500:9500
     volumes:
       - ./ok-stack/logs:/home/okstar/ok-stack-backend/logs
+      - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - db
       - apacheds
