@@ -4,8 +4,8 @@ OkStackInstall 为 OkStack 系统（[前端](https://github.com/okstar-org/ok-st
 ## 准备条件
 - 公网服务器1台（X64架构、2核、4G、100G存储）
 - 目前支持系统如下：
-    - Deb系：Ubuntu, Debian
-    - Dnf系：Fedora, CentOS, Rocky, Redhat, Circle, Alibaba, OpenCloudOS
+    - Deb系：Ubuntu 22.04+, Debian 10+
+    - Dnf系：Fedora 39+, CentOS 9+, Rocky 9+, Redhat 9+, Circle 9+, Alibaba(OpenAnolis Edition) 3+, OpenCloudOS 8.8
 
 - 公网域名1个域名以及子域名，列如：
     - 一级域名，okstar.org
