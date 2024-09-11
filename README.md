@@ -3,6 +3,10 @@ OkStackInstall 为 OkStack 系统（[前端](https://github.com/okstar-org/ok-st
 
 ## 准备条件
 - 公网服务器1台（X64架构、2核、4G、100G存储）
+- 目前支持系统如下：
+    - Deb系：Ubuntu, Debian
+    - Dnf系：Fedora, CentOS, Rocky, Redhat, Circle, Alibaba, OpenCloudOS
+
 - 公网域名1个域名以及子域名，列如：
     - 一级域名，okstar.org
     - 二级域名，kc.okstar.org    端口：18080
@@ -11,13 +15,15 @@ OkStackInstall 为 OkStack 系统（[前端](https://github.com/okstar-org/ok-st
 > 如有防火墙，请开放相关所需端口。
 
 ## 系统依赖
-- Docker24+
-- DockerCompose 2.19+
+- Docker24+ Or latest Podman 
+- DockerCompose 2.19+ Or latest PodmanCompose
 - Python3+
-- Linux
+
 
 
 ## 安装项目
+> 由于大陆网络不可言语的问题，安装时无法下载请多次重试！
+
 - 克隆代码
 ```shell
 git clone https://github.com/okstar-org/ok-stack-installer.git

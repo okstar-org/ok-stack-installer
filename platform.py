@@ -8,7 +8,7 @@ from pathlib import Path
  
 DIR = os.path.dirname(__file__)  
 aptOs = ["Ubuntu", "Debian"]
-dnfOs = ["Fedora", "CentOS", "Rocky", "Redhat"]
+dnfOs = ["Fedora", "CentOS", "Rocky", "Redhat", "Alibaba", "Circle", "OpenCloudOS"]
 
 class OsInfo:
     name = ""
@@ -24,10 +24,10 @@ class OsInfo:
         return (f"Name: {self.name}, Version: {self.version}, Kernel: {self.kernel}, Arch: {self.arch}") 
     
     def isDeb(self):
-        return aptOs.index(self.name) >= 0
+        return self.name in aptOs
     
     def isDnf(self):
-        return dnfOs.index(self.name) >= 0
+        return self.name in dnfOs
 
 def exit(code):
     sys.exit(code)
