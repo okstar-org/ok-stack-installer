@@ -154,7 +154,7 @@ Changed users sync period   :86400
 
 - 主界面，点击“系统管理”=》“基础设置”：
     - IM服务器地址:{meet_doamin}
-    - IM服务器端口:5222
+    - IM服务器管理端口:9090
     - IM连接密钥: 为Secret key: `lqiKpoT.....`
     - 刷新查看输入效果（无需保存）
 
