@@ -15,7 +15,7 @@ def upDepends(o: OsInfo, build: bool):
         cmd = cmd + ['--build']
 
     if(o.isDeb()):
-        result = subprocess.run(['docker-compose' ]+cmd)
+        result = subprocess.run(['docker compose' ]+cmd)
         return result.returncode == 0
     elif(o.isDnf()):
         result = subprocess.run(['podman-compose' ]+cmd)

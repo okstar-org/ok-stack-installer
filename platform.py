@@ -94,7 +94,7 @@ def setupDocker(o: OsInfo):
     result = os.system("which docker")
     if (not result == 0):
         if(o.isDeb()):
-            result = subprocess.run(['apt', '-y', 'install', 'docker.io', 'docker-compose'])
+            result = subprocess.run(['apt', '-y', 'install', 'docker.io', 'docker-compose-v2'])
             if(result.returncode != 0):
                 print(f"Install docker is failed:{result.returncode}")
                 return False
