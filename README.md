@@ -13,6 +13,8 @@ OkStackInstall 为 OkStack 系统（[前端](https://github.com/okstar-org/ok-st
     - 二级域名，meet.okstar.org  端口：5222
     - 二级域名，stack.okstar.org 端口：1080
 > 如有防火墙，请开放相关所需端口。
+> 针对云服务器内存较低情况，请设置swap交换分区配置swappiness=100，具体操作请询问GPT！
+
 
 ## 系统依赖
 > 具体请参考相关操作系统命令或者官方文档
@@ -31,6 +33,7 @@ git clone https://github.com/okstar-org/ok-stack-installer.git
 ```
 
 - 执行安装
+> 请使用root用户或者sudo执行命令，否则可能会出现莫名其妙的问题！
 ```shell
 cd ok-stack-installer
 chmod a+x *.sh
