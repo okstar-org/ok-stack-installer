@@ -1,5 +1,18 @@
 version: "3"
 services:
+  minio:
+    image: "minio/minio"
+    restart: always
+    environment:
+      MINIO_ACCESS_KEY: "minio"
+      MINIO_SECRET_KEY: "minio1234567#"
+    volumes:
+      - ./minio/data:/data
+    ports:
+      - 7000:7000
+    command: server -address ":7000" --console-address ":7001" /data  
+    privileged: true
+
   db:
     image: "mariadb:10.6.15"
     volumes:
@@ -80,13 +93,7 @@ services:
     restart: always
     ports:
       - 1080:80
-      - 8000:8000
-      - 9000:9000
-      - 9100:9100
-      - 9200:9200
-      - 9300:9300
-      - 9400:9400
-      - 9500:9500
+
     volumes:
       - ./ok-stack/logs:/home/okstar/ok-stack-backend/logs
       - /var/run/docker.sock:/var/run/docker.sock
