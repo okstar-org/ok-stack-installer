@@ -67,7 +67,7 @@ Policies  : Default Policy
 Decision strategy: Unanimous
 ```
 - 点击`Save`保存
-- 左侧菜单，点击`Verify Profile`=》`Required Actions`，找到`Verify Profile`，关闭即可。
+- 左侧菜单，点击`Authentication`=》`Required Actions`，找到`Verify Profile`，关闭即可。
 
 #### 配置 User Federation
 
@@ -131,6 +131,7 @@ Changed users sync period   :86400
     - 设置连接，Protocol:`ldap`	主机:`apacheds`	端口:`10389`
     - 基础的DN:`ou=users,dc=okstar,dc=org`
     - 管理员DN:`uid=admin,ou=system`，密码: `secret`，点击测试显示成功即可
+    - 用户映射和组映射点击继续即可
 - 第五步，选择LDAP管理员
     - 第一项，输入`okstar`
     - 第二项，选择第一个选项：`The value provided above is a LDAP user.`
