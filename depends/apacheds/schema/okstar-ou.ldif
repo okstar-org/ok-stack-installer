@@ -15,14 +15,14 @@ ou: groups
 
 
 
-dn: cn=okstar,ou=users,dc=okstar,dc=org
+dn: uid=okstar,ou=users,dc=okstar,dc=org
 objectClass: inetOrgPerson
 objectClass: organizationalPerson
 objectClass: person
 objectClass: top
-cn: okstar
-sn: Ok
-givenName: Star
+cn: Ok
+sn: Star
+givenName: OkStar
 uid: okstar
 userPassword:: e1NTSEF9NmpNSjNqUGdEMlNEbnR0Rkh3N2o5S0RCSDFaMFlhQjRoSitZekE9P
  Q==
