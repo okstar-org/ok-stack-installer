@@ -7,7 +7,7 @@ services:
       MINIO_ACCESS_KEY: "minio"
       MINIO_SECRET_KEY: "minio1234567#"
     volumes:
-      - ./minio/data:/data
+      - ${DATA_DIR}/minio/data:/data
     ports:
       - 7000:7000
     command: server -address ":7000" --console-address ":7001" /data  
@@ -18,7 +18,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime
       - ./mariadb/initdb.d:/docker-entrypoint-initdb.d
-      - ./mariadb/data:/var/lib/mysql
+      - ${DATA_DIR}/mariadb/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "okstar"
     restart: always
@@ -79,8 +79,8 @@ services:
     image: "okstarorg/ok-openfire"
     restart: always
     volumes:
-      - ./ok-openfire:/home/openfire
-      - ./ok-openfire/logs:/var/log/openfire
+      - ${DATA_DIR}/ok-openfire:/home/openfire
+      - ${DATA_DIR}/ok-openfire/logs:/var/log/openfire
     ports:
       - 5222:5222
       - 9090:9090
@@ -95,7 +95,7 @@ services:
       - 1080:80
 
     volumes:
-      - ./ok-stack/logs:/home/okstar/ok-stack-backend/logs
+      - ${DATA_DIR}/ok-stack/logs:/home/okstar/ok-stack-backend/logs
       - /var/run/docker.sock:/var/run/docker.sock
     depends_on:
       - db
