@@ -69,15 +69,16 @@ Decision strategy: Unanimous
 - 点击`Save`保存
 - 左侧菜单，点击`Authentication`=》`Required Actions`，找到`Verify Profile`，关闭即可。
 
-#### 配置 User Federation
+#### 配置 User Federation（Settings）
 
-- 点击左下角  `User Federation`，选择增加`LDAP`
-> General options
+> 点击左下角  `User Federation`，选择增加`LDAP`
+
+- General options
 ```text
 UI display name *   :ldap
 Vendor *            :Other
 ```
-> Connection and authentication settings
+- Connection and authentication settings
 ```text
 Connection URL *    :ldap://apacheds:10389
 Connection pooling  :On
@@ -88,7 +89,7 @@ Bind credentials *  :secret
 # 可以点击Test测试是否成功
 ```
 
-> LDAP searching and updating
+- LDAP searching and updating
 ```text
 Edit mode *                 :WRITABLE
 Users DN *                  :ou=users,dc=okstar,dc=org
@@ -100,8 +101,7 @@ Search scope        :Subtree
 Read timeout        :10000
 Pagination          :On
 ```
-
-> Synchronization settings
+- Synchronization settings
 
 ```text
 Import users        :On
@@ -111,6 +111,21 @@ Full sync period    :604800
 Periodic changed users sync :On
 Changed users sync period   :86400
 ```
+#### 配置字段映射（Mappers）
+
+> 配置用户属性字段到ldap存储的映射，请按照如下字段列表配置：
+User Model Attribute为 `user-attribute-ldap-mapper`，其它字段默认就行。
+
+| Name *      |Mapper type * | LDAP Attribute * |
+| ----------- | ----------- |  ----------- |
+| Telephone number  |   telephone   |telephoneNumber
+| Initials          |   initials    |initials
+| Display name      |   nickname    |displayName
+| description       |   description |description
+| Province          |   province    |st
+| City              |   city        |l
+| Address           |   address     |streetAddress
+
 
 至此，Keycloak认证服务器则配置完成
 
