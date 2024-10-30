@@ -146,7 +146,26 @@ User Model Attribute为 `user-attribute-ldap-mapper`，其它字段默认就行�
     - 设置连接，Protocol:`ldap`	主机:`apacheds`	端口:`10389`
     - 基础的DN:`ou=users,dc=okstar,dc=org`
     - 管理员DN:`uid=admin,ou=system`，密码: `secret`，点击测试显示成功即可
-    - 用户映射和组映射点击继续即可
+    - 用户映射和组映射
+    ```
+    - 全名          {cn}{sn}
+    - 头像          {photo}
+    - 昵称                  {displayName}
+    ==== 家庭 《====清空
+    ==== 商业 ====
+    - 街道地址              {streetAddress} 	
+    - 城市 	                {l}
+    - 州/省 	                {st}
+    - 邮政编码 	            {postalCode}
+    - 国家/地区              {co} 	
+    - 职位名称 	            {title}
+    - 部门 	                {departmentNumber}
+    - 电话号码 	            {telephoneNumber}
+    - 手机号码 	            {mobile}
+    - 传真 	                {facsimileTelephoneNumber}
+    - 寻呼机 	            {pager}
+    ```
+    - 点击继续即可
 - 第五步，选择LDAP管理员
     - 第一项，输入`okstar`
     - 第二项，选择第一个选项：`The value provided above is a LDAP user.`
