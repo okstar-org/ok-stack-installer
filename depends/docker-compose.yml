@@ -76,7 +76,8 @@ services:
       retries: 10  
 
   ok-openfire:
-    image: "okstarorg/ok-openfire"
+    build:
+      context: ./openfire
     restart: always
     volumes:
       - ${DATA_DIR}/ok-openfire:/home/openfire
@@ -84,6 +85,7 @@ services:
     ports:
       - 5222:5222
       - 9090:9090
+      - 5005:5005
     depends_on:
       - db
       - apacheds
