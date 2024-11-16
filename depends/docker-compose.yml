@@ -9,8 +9,9 @@ services:
     volumes:
       - ${DATA_DIR}/minio/data:/data
     ports:
-      - 7000:7000
-    command: server -address ":7000" --console-address ":7001" /data  
+      - 7001:7001
+      - 7002:7002
+    command: server -address ":7001" --console-address ":7002" /data  
     privileged: true
 
   db:
@@ -85,7 +86,10 @@ services:
     ports:
       - 5222:5222
       - 9090:9090
-      - 5005:5005
+      - 7443:7443
+      - 4443:4443
+      - 8180:8180
+      - 10000:10000
     depends_on:
       - db
       - apacheds
