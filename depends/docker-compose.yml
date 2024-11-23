@@ -1,8 +1,24 @@
 version: "3"
 services:
+  coturn:
+    image: "coturn/coturn"
+    restart: unless-stopped
+    ports:
+      - "3478:3478/udp" # STUN/TURN UDP
+      - "3478:3478/tcp" # STUN/TURN TCP
+      - "3479:3479/udp" # STUN/TURN UDP Alt port (RFC5780 support)
+      - "3479:3479/tcp" # STUN/TURN TCP Alt port (RFC5780 support)
+      - "5349:5349/udp" # STUN/TURN DTLS
+      - "5349:5349/tcp" # STUN/TURN TLS
+      - "5350:5350/udp" # STUN/TURN DTLS Alt port (RFC5780 support)
+      - "5350:5350/tcp" # STUN/TURN TLS Alt port (RFC5780 support)
+      - "49152:65535/udp" # UDP media ports for TURN relay
+    volumes:
+      - ${DATA_DIR}/coturn/turnserver.conf:/etc/coturn/turnserver.conf
+  
   minio:
     image: "quay.io/minio/minio"
-    restart: always
+    restart: unless-stopped
     environment:
       MINIO_ACCESS_KEY: "minio"
       MINIO_SECRET_KEY: "minio1234567#"
@@ -22,7 +38,7 @@ services:
       - ${DATA_DIR}/mariadb/data:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: "okstar"
-    restart: always
+    restart: unless-stopped
     healthcheck:
       test: ["CMD", "mysqladmin" , "-h", "localhost","-uroot", "-pokstar", "ping"]  
       timeout: 20s
@@ -34,7 +50,7 @@ services:
       context: ./apacheds
     ports:
       - "10389:10389"
-    restart: always
+    restart: unless-stopped
     healthcheck:  
       test: ["CMD", "nc", "-zv", "localhost", "10389"]  
       interval: 10s  
@@ -66,7 +82,7 @@ services:
     ports:
       - 8080:8080
       - 8443:8443
-    restart: always
+    restart: unless-stopped
     depends_on:
       - db
       - apacheds
@@ -79,7 +95,7 @@ services:
   ok-openfire:
     build:
       context: ./openfire
-    restart: always
+    restart: unless-stopped
     volumes:
       - ${DATA_DIR}/ok-openfire:/home/openfire
       - ${DATA_DIR}/ok-openfire/logs:/var/log/openfire
@@ -96,7 +112,7 @@ services:
 
   ok-stack:
     image: "okstarorg/${VERSION}"
-    restart: always
+    restart: unless-stopped
     ports:
       - 1080:80
 
