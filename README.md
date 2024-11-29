@@ -317,7 +317,7 @@ listen 443;
 ### 配置访问权限
 - 访问管理后台`http://{host}:7002/`，输入配置的用户和密码
 - 创建名称为`ok-stack`的Bucket，配置`Access Policy`为`Public`
-- 进入`Access Keys`菜单，创建`access key`和`password`,并且两个备份保存。
+- 进入`Access Keys`菜单，创建`Access key`和`Secret Key`,并且两个备份保存。
 
 ### 配置Nginx代理
 > 为了便于浏览器域名访问，可以nginx配置如下：
