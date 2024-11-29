@@ -296,3 +296,57 @@ listen 443;
         proxy_pass http://localhost:8080/;
     }
 ```
+
+## 配置存储服务
+本系统采用minio，配置信息位于`depends/docker-compose.yml`可根据需要仔细调整，初始内容如下：
+```yml
+  minio:
+    image: "quay.io/minio/minio"
+    restart: unless-stopped
+    environment:
+      MINIO_ACCESS_KEY: "minio"
+      MINIO_SECRET_KEY: "minio1234567#"
+    volumes:
+      - ${DATA_DIR}/minio/data:/data
+    ports:
+      - 7001:7001
+      - 7002:7002
+    command: server -address ":7001" --console-address ":7002" /data  
+    privileged: true
+```
+### 配置访问权限
+- 访问管理后台`http://{host}:7002/`，输入配置的用户和密码
+- 创建名称为`ok-stack`的Bucket，配置`Access Policy`为`Public`
+- 进入`Access Keys`菜单，创建`access key`和`password`,并且两个备份保存。
+
+### 配置Nginx代理
+> 为了便于浏览器域名访问，可以nginx配置如下：
+```conf
+server {
+    listen 443;
+    listen [::]:443;
+    server_name s3.{host}; # 域名
+
+    location / {
+        proxy_cache off;
+        proxy_set_header Host $http_host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_pass http://localhost:7001/;
+    }
+}
+```
+
+### 后台配置Minio关联
+- 进入`ok-stack`后台管理，`系统管理`/`集成设置`。
+- 定位到`Minio 设置`菜单，参考如下配置。
+```
+访问Url：https://s3.{host}
+写入Url：http://{host}:7001
+
+# 写入对应Access Key和Secret Key
+Access Key：frCFnmZZRlxq5FzssHmE
+Secret Key：**********
+
+```
+- 保存即可。
