@@ -13,13 +13,8 @@ def upDepends(o: OsInfo, build: bool):
     cmd=['up', '-d', '--remove-orphans'];
     if (build):
         cmd = cmd + ['--build']
-
-    if(o.isDeb()):
-        result = subprocess.run(['docker']+['compose']+cmd)
-        return result.returncode == 0
-    elif(o.isDnf()):
-        result = subprocess.run(['podman-compose' ]+cmd)
-        return result.returncode == 0
+    result = subprocess.run(['docker']+['compose']+cmd)
+    
     return True
 
 
