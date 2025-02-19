@@ -12,6 +12,7 @@ def upDepends(o: OsInfo, build: bool):
 
     cmd=['up', '-d', '--remove-orphans'];
     if (build):
+        #docker compose up -d --remove-orphans --build
         cmd = cmd + ['--build']
     result = subprocess.run(['docker']+['compose']+cmd)
     

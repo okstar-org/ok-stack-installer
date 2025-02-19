@@ -9,18 +9,14 @@ from platform import OsInfo
 def downDepends(o: OsInfo):
     print("Destory ...")
     os.chdir("depends")
-    if(o.isDeb()):
-        subprocess.run(['docker-compose', 'down'])
-        return False
-    elif(o.isDnf()):
-        subprocess.run(['podman-compose', 'down'])
-        return False
-
+    subprocess.run(['docker-compose', 'down'])
     return True
 
 def uninstall():
-    result = downDepends(platform.getOs())
-    if(result):
+    result = downDepends()
+    if (result):
+        print("Uninstall ...")
+    else:
         print("Uninstall failed.")
 
 uninstall()
