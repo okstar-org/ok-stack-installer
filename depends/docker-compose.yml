@@ -111,7 +111,7 @@ services:
       - apacheds
 
   ok-stack:
-    image: "okstarorg/${VERSION}"
+    image: "registry.cn-shenzhen.aliyuncs.com/okstarorg/${VERSION}"
     restart: unless-stopped
     ports:
       - 1080:80
