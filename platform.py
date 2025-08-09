@@ -87,21 +87,69 @@ def updateOs(os):
         return False
     return True
 
+def run_command(command):
+    """运行shell命令并捕获其输出和错误"""
+    try:
+        result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        return result.stdout, result.stderr
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing command: {e.cmd}")
+        print(f"Output: {e.stdout}")
+        print(f"Error: {e.stderr}")
+        raise
+def DebsetupDocker():
+    # Step 1: 安装必要的一些系统工具
+    print("Step 1: Installing necessary system tools...")
+    commands = [
+        "sudo apt-get update",
+        "sudo apt-get install -y ca-certificates curl gnupg"
+    ]
+    for cmd in commands:
+        run_command(cmd)
+    # Step 2: 信任 Docker 的 GPG 公钥
+    print("Step 2: Trusting Docker's GPG public key...")
+    commands = [
+        "sudo install -m 0755 -d /etc/apt/keyrings",
+        f"curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg",
+        "sudo chmod a+r /etc/apt/keyrings/docker.gpg"
+    ]
+    for cmd in commands:
+        run_command(cmd)
+    # Step 3: 写入软件源信息
+    print("Step 3: Writing repository information...")
+    version_codename = subprocess.run(". /etc/os-release && echo \"$VERSION_CODENAME\"", shell=True, check=True, stdout=subprocess.PIPE, text=True).stdout.strip()
+    deb_line = f'deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu {version_codename} stable'
+    with open("/tmp/docker.list", "w") as f:
+        f.write(deb_line)
+    run_command("sudo mv /tmp/docker.list /etc/apt/sources.list.d/docker.list")
+    # Step 4: 安装Docker
+    print("Step 4: Installing Docker...")
+    commands = [
+        "sudo apt-get update",
+        "sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin"
+    ]
+    for cmd in commands:
+        run_command(cmd)
+    print("Docker installation completed successfully!")
+    return True
 
+def DnfsetupDocker():
+    # Step 1: 安装必要的一些系统工具
+    run_command("sudo yum install -y yum-utils")
+    # Step 2: 添加软件源信息
+    run_command("sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo")
+    # Step 3: 安装Docker
+    run_command("sudo yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin")
+    # Step 4: 开启Docker服务
+    run_command("sudo service docker start")
 
 def setupDocker(o: OsInfo):
     print("Set up docker.")
     result = os.system("which docker")
     if (not result == 0):
         if(o.isDeb()):
-            result = subprocess.run(['apt', '-y', 'install', 'docker.io', 'docker-compose-v2'])
-            if(result.returncode != 0):
-                print(f"Install docker is failed:{result.returncode}")
-                return False
+            DebsetupDocker()
         elif(o.isDnf()):
-            result = subprocess.run(['dnf', 'install', 'podman', 'podman-compose'])
-            if(result.returncode != 0):
-                print(f"Install docker is failed:{result.returncode}")
-                return False
+            DnfsetupDocker()
         print("Set up docker is completed.")
     return True

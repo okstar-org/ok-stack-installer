@@ -237,7 +237,7 @@ git reset --hard
 git pull origin main
 ```
 - 执行安装
-> 请参考上面的安装部门
+> 请参考上面的安装部分
 
 - 删除原来容器和镜像，如下：
 
